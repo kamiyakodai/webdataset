@@ -17,7 +17,7 @@ import re
 import itertools, os, random, sys, time
 from functools import reduce, wraps
 import pickle
-
+import copy
 import numpy as np
 
 from . import autodecode, utils
@@ -485,7 +485,7 @@ def _batched(
                 batch = collation_fn(batch)
             yield batch
             batch = []
-        batch.append(sample)
+        batch.append(copy.deepcopy(sample))
     if len(batch) == 0:
         return
     elif len(batch) == batchsize or partial:
